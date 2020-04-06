@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %} 
+Cine Jungla
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% load static %}
+
+{% block content %}    
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8 main-section">
+            <div class="modal-content">
+                <div class="col-12 logo-img">
+                    
+                    <img src="{% static 'img/jungle.png' %}" />
+                </div>
+                
+                <form class="col-12" method="POST" action="CineJungla">
+                    {% csrf_token %}
+                    <div class="form-group" id="user-group">
+                        <input type="text" class="form-control" placeholder="Usuario"  />
+                    </div>
+                    <div class="form-group" id="pass-group">
+                         <input type="password" class="form-control" placeholder="Contraseña"  />
+                        
+                    </div>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-sign-in-alt"></i>  INGRESAR</button>
+                    <br></br>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
