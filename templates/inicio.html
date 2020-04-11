@@ -75,20 +75,12 @@
 {% include "navbar.html"%}
     <div class="portada2">
         <div class="text">
-            <h1>Boleteria</h1>
-            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="asientos/">Ir</a>
+
+            <!--<a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="asientos/">Ir</a>-->
+            {% for images in imagenes %}
+              <h1>MULTIPLEX: {{ images.nombre }}</h1>
+            {% endfor %}
         </div>
-    </div>
-    <div class="portada">
-        <br/><br/>
-        <div class="text">
-			<h1>Confiteria</h1>
-            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="queso/">Ir</a>
-		</div>
-        <br/><br/><br/><br/><br/><br/>
-        <a href="#" id="js_up">
-              Subir
-            </a>
     </div>
     <script src="{% static 'js/agency.min.js' %}"></script>
 

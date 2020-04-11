@@ -1,10 +1,15 @@
-from django.shortcuts import render
-from .froms import RegFrom, RegModelForm, ContactForm, addProd
-from .models import Registrado
+from django.shortcuts import render, redirect
+from .froms import addProd, regFrom
+from .models import Registrado, Multiplex, Silla, Pelicula
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login as do_login
+from django.contrib.auth import logout as do_logout
+from django.contrib.auth.models import Group
+from django.core.mail import send_mail
+from django.conf import settings
 
-# -------------------------------------------
-#     Desde acá
-# -------------------------------------------
+# from passlib.hash import pbkdf2_sha256
 
 productos = {'combo 1': 5,
              'Queso': 2,
@@ -12,6 +17,133 @@ productos = {'combo 1': 5,
              'Tocineta': 0,
              }
 lista = {}
+
+def confiteria(request):
+   return render(request, "confiteria.html")
+
+def peliculas(request):
+   multiplex = Multiplex.objects.all()
+   peliculas = Pelicula.objects.all()
+   context ={
+      "multi": multiplex,
+      "pelis": peliculas
+   }
+   return render(request, "peliculas.html", context)
+
+def recibo(request):
+   return render(request, "recibo.html")
+
+def enviarCorreo(request):
+   form = regFrom(request.POST or None)
+
+   # print(dor(form))
+   if form.is_valid():
+      formData = form.cleaned_data
+      email = formData.get("email")
+      nombre = formData.get("nombre")
+      mensaje2 = formData.get("mensaje")
+      mensaje = mensaje2 + "Hola "+nombre\
+                +"\n Tambien te queremos invitar a llenar esta encuesta de satisfacción:\n https://forms.gle/JvDjdpKkBU5oqd1d7"
+      asunto = "Cine Jungla"
+      emailFrom = settings.EMAIL_HOST_USER
+      emailTO = [email, "rmacias@unbosque.edu.co"]
+
+      send_mail(asunto,
+                mensaje,
+                emailFrom,
+                emailTO,
+                fail_silently=False
+                )
+
+      print(nombre, "\t", email, "\t", mensaje, "\t")
+   context = {
+
+      "el_form": form,
+   }
+   return render(request, "correo.html", context)
+
+def asientos(request):
+   sillas = Silla.objects.all()
+   Silla.objects.filter(estado_silla=2).update(estado_silla=0)
+   if request.method == "POST":
+      pelicula = request.POST['p']
+      multiplex = request.POST['m']
+      context = {
+         "sillas": sillas,
+         "pelicula": pelicula,
+         "multiplex": multiplex
+      }
+   else:
+      context = {
+         "sillas": sillas
+      }
+   return render(request, "asientos.html", context)
+
+def comprar(request):
+   if request.method == "POST":
+      pag = request.POST['pag']
+      pelicula = request.POST['p']
+      multiplex = request.POST['m']
+      silla1 = request.POST.getlist('id')
+      lista = []
+      for tipo in silla1:
+         lista.append(Silla.objects.filter(id=tipo))
+      print(lista)
+      if pag == 'C':
+         context = {
+            "sillas": silla1,
+            "pelicula": pelicula,
+            "multiplex": multiplex
+         }
+         for silla in silla1:
+            Silla.objects.filter(id = silla).update(estado_silla = 1)
+         return render(request, "recibo.html", context)
+      if pag == 'R':
+         for silla in silla1:
+            Silla.objects.filter(id = silla).update(estado_silla = 2)
+         silla2 = Silla.objects.all()
+         context = {
+            "sillas": silla2,
+         }
+   return render(request, "asientos.html", context)
+
+def inicio(request):
+   if request.user.is_authenticated:
+      return render(request, "inicio.html")
+   else:
+      return redirect('../')
+
+def login(request):
+   if request.method == "POST":
+
+      username = request.POST['nombre']
+      password = request.POST['pass']
+      user = authenticate(username=username, password=password)
+      # hash = pbkdf2_sha256.hash("123456")
+      # print(pbkdf2_sha256.verify("password", hash))
+      # print(hash)
+      if user is not None:
+         do_login(request, user)
+         grupo = Group.objects.get(user=user)
+         if grupo.id == 2:
+            return render(request, "inicio.html")
+         else:
+            return render(request, "confiteria.html")
+   return render(request, "registration/login.html")
+
+# def login(request):
+#    return render(request, "inicio.html")
+
+def logout(request):
+   do_logout(request)
+   return redirect('login')
+
+
+def img_multiplex(request):
+   imgs = Multiplex.objects.all()
+   for i in imgs:
+      print(imgs.nombre)
+   return render(request, "inicio.html", {'imagenes': imgs})
 
 def selecProducto(request):
 
@@ -146,129 +278,5 @@ def addCompra(pProducto):
       print('No puede agregar mas productos')
    return desactivado
 
-def inicio(request):
-
-   return render(request, "inicio.html")
-
-def crud(request):
-   registros = Registrado.objects.all()
-   context = {
-      'registros': registros
-   }
-   return render(request, "CRUD.html", context)
-
-def login(request):
-   return render(request, "registration/login.html", {})
-
-def asientos(request):
-   return render(request, "asientos.html")
-
 def comida(request):
-   # form = CarritoForm(request.POST or None)
-   # pag = PagForm(request.POST)
-   # if pag.is_valid():
-   #    nompag = pag.cleaned_data.get("pag")
-   #    if nompag == 'pagar' and form.is_valid():
-   #       context = {
-   #          "el_form": form,
-   #       }
-   #       return render(request, "pagar.html", context)
-   #    if nompag == 'comida':
-   #       context = {
-   #          "form": form,
-   #       }
-   #       return render(request, "comida.html", context)
-   # context = {
-   #    "form": form,
-   # }
    return render(request, "comida.html")
-
-def contact(request):
-   form = ContactForm(request.POST or None)
-   # if form.is_valid():
-   #    form_email = form.cleaned_data.get("email")
-   #    form_mensaje = form.cleaned_data.get("mensaje")
-   #    form_nombre = form.cleaned_data.get("nombre")
-      # asunto = 'From de Contacto'
-      # email_from = settings.EMAIL_HOST_USER
-      # email_to = [email_from, "miguemh99@gmail.com"]
-      # email_mensaje = "%s: %s enviado por %s" %(form_nombre, form_mensaje, form_email)
-      # send_mail(asunto,
-      #     email_mensaje,
-      #     email_from,
-      #     email_to,
-      #     # [email_to],
-      #     fail_silently=False
-      #     )
-      # for key in form.cleaned_data:
-      #    print(key)
-      #    print(form.cleaned_data.get(key))
-   context = {
-      "el_form": form,
-   }
-   return render(request,"inicio.html", context)
-
-def inicio(request):
-   titulo = "Hola"
-   #if request.user.is_authenticated():
-   #   titulo = "que mas %s" %(request.user)
-   #form = RegForm(request.POST or None)
-   form = RegModelForm(request.POST or None)
-   #print(dir(form))
-
-   context = {
-      "titulo": titulo,
-      "el_form": form,
-   }
-
-   if form.is_valid():
-      instance = form.save(commit=False)
-      nombre = form.cleaned_data.get("nombre")
-      if instance.nombre == "Miguel":
-         context = {
-            "titulo": "gracias %s!" %(nombre)
-         }
-      # instance.save()
-      print(instance)
-      # print(instance.timestamp)
-         # form_date = form.cleaned_data
-         # n = form_date.get("nombre")
-         # c = form_date.get("clave")
-         # obj = Usuario.objects.create(nombre=n, clave=c)
-
-   return render(request,"inicio.html", context)
-
-def inicio3(request):
-   titulo = "HOLA"
-   if request.user.is_authenticated:
-      titulo = "Bienvenido %s" %(request.user)
-   form = RegFrom(request.POST or None)
-   # print(dir(form))
-   if form.is_valid():
-      form_data = form.cleaned_data
-      abc = form_data.get("email")
-      asd = form_data.get("nombre")
-      obj = Registrado.objects.create(nombre=asd,email=abc)
-   context = {
-      "titulo": titulo,
-      "el_form": form,
-   }
-   return render(request, "inicio.html", context)
-
-def inicio2(request):
-   form = RegFrom(request.POST or None)
-   # print(dir(form))
-   if form.is_valid():
-      nombre = form.cleaned_data.get("nombre")
-      print(nombre)
-   context = {
-      "el_form": form,
-   }
-   return render(request, "inicio.html", context)
-
-def inicio1(request):
-   form = RegFrom()
-   context = {
-      "el_form": form,
-   }
-   return render(request,"inicio.html", context)

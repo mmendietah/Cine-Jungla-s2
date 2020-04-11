@@ -1,27 +1,14 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-
 <!DOCTYPE html>
+{% load static %}
 <html class=''>
 <head>
-    <script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
-    <script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script>
-    <script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
-    <meta charset='UTF-8'>
-    <meta name="robots" content="noindex">
-    <link rel="shortcut icon" type="image/x-icon"
-          href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico"/>
-    <link rel="mask-icon" type=""
-          href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg"
-          color="#111"/>
-    <link rel="canonical"
-          href="https://codepen.io/ryanparag/pen/LLrVbo?depth=everything&order=popularity&page=10&q=movie&show_forks=false"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
-    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><meta charset='UTF-8'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <style class="cp-pen-styles">@import url("https://fonts.googleapis.com/css?family=Arimo:400,700");
 
     body {
@@ -37,10 +24,6 @@
     * {
         -webkit-transition: 300ms;
         transition: 300ms;
-    }
-
-    .intro {
-        text-align: center;
     }
 
     ul {
@@ -98,11 +81,6 @@
         background-size: cover;
     }
 
-    .babyDriver {
-        background: url("../static/img/joker.jpg");
-        background-size: cover;
-    }
-
     .theDarkTower {
         background: url("http://cdn.collider.com/wp-content/uploads/2017/03/the-dark-tower-poster.jpg");
         background-size: cover;
@@ -111,12 +89,6 @@
 
     .bladeRunner2049 {
         background: url("http://cdn.collider.com/wp-content/uploads/2017/05/blade-runner-2049-poster-ryan-gosling.jpeg");
-        background-size: cover;
-        background-position: 100% 80%;
-    }
-
-    .avengers {
-        background: url("../static/img/avengers.png");
         background-size: cover;
         background-position: 100% 80%;
     }
@@ -223,164 +195,165 @@
             margin: 0;
         }
     }
+
+    body {
+        text-align: center;
+        background: #e0e0e0;
+        padding-bottom: 200px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    /*---------- Wrapper --------------------*/
+
+    nav {
+        width: 100%;
+        height: 80px;
+        background: #222;
+    }
+
+    ul {
+        text-align: center;
+    }
+
+    ul li {
+        font: 13px Verdana, 'Lucida Grande';
+        cursor: pointer;
+        -webkit-transition: padding .05s linear;
+        -moz-transition: padding .05s linear;
+        -ms-transition: padding .05s linear;
+        -o-transition: padding .05s linear;
+        transition: padding .05s linear;
+    }
+
+    ul li.drop {
+        position: relative;
+    }
+
+    ul > li {
+        display: inline-block;
+    }
+
+    ul li a {
+        line-height: 80px;
+        padding: 0 20px;
+        height: 80px;
+        color: #777;
+        -webkit-transition: all .1s ease-out;
+        -moz-transition: all .1s ease-out;
+        -ms-transition: all .1s ease-out;
+        -o-transition: all .1s ease-out;
+        transition: all .1s ease-out;
+    }
+
+    ul li a:hover {
+        color: #eee;
+    }
+
+    .dropOut .triangle {
+        width: 0;
+        height: 0;
+        position: absolute;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid white;
+        top: -8px;
+        left: 50%;
+        margin-left: -8px;
+    }
+
+    .dropOut ul {
+        float: left;
+        padding: 10px 0;
+    }
+
+    .dropOut ul li {
+        text-align: left;
+        float: left;
+        width: 125px;
+        padding: 12px 0 10px 15px;
+        margin: 0px 10px;
+        color: #777;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webkit-transition: background .1s ease-out;
+        -moz-transition: background .1s ease-out;
+        -ms-transition: background .1s ease-out;
+        -o-transition: background .1s ease-out;
+        transition: background .1s ease-out;
+    }
+
+    .dropOut ul li:hover {
+        background: #f6f6f6;
+    }
+
+    ul li:hover a {
+        color: white;
+    }
+
+    ul li:hover .dropdownContain {
+        top: 65px;
+    }
+
+    ul li:hover .underline {
+        border-bottom-color: #777;
+    }
+
+    ul li:hover .dropOut {
+        opacity: 1;
+        margin-top: 8px;
+    }
+
     </style>
 </head>
 <body>
-
+<a class="navbar-brand js-scroll-trigger" href="../CineJungla">Inicio</a>
 <div class="container">
-
-
+    {% for pelicula in pelis %}
+    <form method="post" action="../asientos/">{% csrf_token %}
     <div class="movie-card">
-        <div class="movie-header manOfSteel">
+        <div class="movie-header">
             <div class="header-icon-container">
-                <a href="#">
-                    <i class="material-icons header-icon"></i>
+                <a>
+                    <img src="{{pelicula.imagen_pelicula}}" width="280" height="365"/>
+                    <input type="hidden" name="p" value="{{pelicula.nom_pelicula}}">
                 </a>
             </div>
         </div><!--movie-header-->
         <div class="movie-content">
             <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">Man of Steel</h3>
+                <a href="{{pelicula.trailer}}">
+                    <h3 class="movie-title">{{pelicula.nom_pelicula}}</h3>
                 </a>
                 <div class="imax-logo"></div>
             </div>
             <div class="movie-info">
                 <div class="info-section">
-                    <label>Date & Time</label>
-                    <span>Sun 8 Sept - 10:00PM</span>
+                    <label>Duración</label>
+                    <span>{{pelicula.duracion_pelicula}}</span>
                 </div><!--date,time-->
                 <div class="info-section">
-                    <label>Screen</label>
-                    <span>03</span>
+                    <label>Clasificación</label>
+                    <span>{{pelicula.clasificacion}}</span>
                 </div><!--screen-->
-                <div class="info-section">
-                    <label>Row</label>
-                    <span>F</span>
-                </div><!--row-->
-                <div class="info-section">
-                    <label>Seat</label>
-                    <span>21,22</span>
-                </div><!--seat-->
+            </div>
+            <div class="dropdown">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                Multiplex
+              </button>
+              <div class="dropdown-menu">
+                  {% for multiplex in multi %}
+                    <button type="submit" class="dropdown-item" name="m" value="{{multiplex.nombre}}">{{multiplex.nombre}}</button>
+                  {% endfor %}
+              </div>
             </div>
         </div><!--movie-content-->
-    </div><!--movie-card-->
-
-    <div class="movie-card">
-        <div class="movie-header babyDriver">
-            <div class="header-icon-container">
-                <a href="#">
-                    <i class="material-icons header-icon"></i>
-                </a>
-            </div>
-        </div><!--movie-header-->
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">Joker</h3>
-                </a>
-                <div class="imax-logo"></div>
-            </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>Date & Time</label>
-                    <span>Tue 4 July - 05:00PM</span>
-                </div><!--date,time-->
-                <div class="info-section">
-                    <label>Screen</label>
-                    <span>01</span>
-                </div><!--screen-->
-                <div class="info-section">
-                    <label>Row</label>
-                    <span>H</span>
-                </div><!--row-->
-                <div class="info-section">
-                    <label>Seat</label>
-                    <span>15</span>
-                </div><!--seat-->
-            </div>
-        </div><!--movie-content-->
-    </div><!--movie-card-->
-
-    <div class="movie-card">
-        <div class="movie-header theDarkTower">
-            <div class="header-icon-container">
-                <a href="#">
-                    <i class="material-icons header-icon"></i>
-                </a>
-            </div>
-        </div><!--movie-header-->
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">The Dark Tower</h3>
-                </a>
-                <div class="imax-logo"></div>
-            </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>Date & Time</label>
-                    <span>Wed 16 Aug - 07:00PM</span>
-                </div><!--date,time-->
-                <div class="info-section">
-                    <label>Screen</label>
-                    <span>06</span>
-                </div><!--screen-->
-                <div class="info-section">
-                    <label>Row</label>
-                    <span>C</span>
-                </div><!--row-->
-                <div class="info-section">
-                    <label>Seat</label>
-                    <span>18</span>
-                </div><!--seat-->
-            </div>
-        </div><!--movie-content-->
-    </div><!--movie-card-->
-
-    <div class="movie-card">
-        <div class="movie-header bladeRunner2049">
-            <div class="header-icon-container">
-                <a href="#">
-                    <i class="material-icons header-icon"></i>
-                </a>
-            </div>
-        </div><!--movie-header-->
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">Blade Runner 2049</h3>
-                </a>
-                <div class="imax-logo"></div>
-            </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>Date & Time</label>
-                    <span>Mon 16 Oct - 10:00PM</span>
-                </div><!--date,time-->
-                <div class="info-section">
-                    <label>Screen</label>
-                    <span>06</span>
-                </div><!--screen-->
-                <div class="info-section">
-                    <label>Row</label>
-                    <span>D</span>
-                </div><!--row-->
-                <div class="info-section">
-                    <label>Seat</label>
-                    <span>05,06</span>
-                </div><!--seat-->
-
-            </div>
-
-        </div><!--movie-content-->
-
-    </div><!--movie-card-->
-    <div>
-
-        <a href="../templates/multiplex.html" class="btn btn-primary btn-lg active" role="button">Regresar</a>
-        <a href="../templates/asientos.html" class="btn btn-primary btn-lg active" role="button">Escoger asientos</a>
-    </div><!--container-->
-
+    </div>
+        </form>
+    {% endfor %}
+</div>
 </body>
 </html>

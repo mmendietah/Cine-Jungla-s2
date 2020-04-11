@@ -17,16 +17,23 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls.static import static
+from django.contrib.auth.decorators import login_required
 from cine import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.login),
+    path('logout', views.logout),
     path('CineJungla', views.inicio),
-    path('crud/', views.crud),
     path('queso/', views.selecProducto),
     path('asientos/', views.asientos),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('peliculas/', views.peliculas),
+    path('calificar/', views.enviarCorreo),
+    path('confiteria/', views.confiteria),
+    path('comprar/', views.comprar),
+    path('recibo/', views.recibo),
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

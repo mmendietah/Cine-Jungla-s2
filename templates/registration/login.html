@@ -19,16 +19,17 @@ Cine Jungla
                     <img src="{% static 'img/jungle.png' %}" />
                 </div>
                 
-                <form class="col-12" method="POST" action="CineJungla">
+                <form class="col-12" method="POST" >
                     {% csrf_token %}
                     <div class="form-group" id="user-group">
-                        <input type="text" class="form-control" placeholder="Usuario" name="usuario" />
+                        <input type="text" class="form-control" placeholder="Usuario" name="nombre" required />
                     </div>
                     <div class="form-group" id="pass-group">
-                         <input type="password" class="form-control" placeholder="Contraseña" name="clave" />
-                        
+                        <input type="password" class="form-control" placeholder="Contraseña" name="pass" required />
+
                     </div>
                     <button type="submit" class="btn btn-success"><i class="fas fa-sign-in-alt"></i>  INGRESAR</button>
+
                     <br></br>
                 </form>
             </div>

@@ -3,13 +3,15 @@
 <html>
 <head>
     <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css">
     <style type="text/css">
         body {
 			background: rgba(0,0,0, 0.5);
             color: white;
+            text-align: center;
         }
         .row {
             width: 100%;
@@ -18,6 +20,7 @@
 
         .column {
             display: inline-block;
+            text-align: center;
         }
 
         .column a {
@@ -35,107 +38,127 @@
 
         .column a:hover span {
             opacity: 1;
+            text-align: center;
         }
     </style>
-
+    <script>
+        $(function () {
+            $('#search').on('keyup', function () {
+                var pattern = $(this).val();
+                $('.items-collection .items').hide();
+                $('.items-collection .items').filter(function () {
+                    return $(this).text().match(new RegExp(pattern, 'i'));
+                }).show();
+            });
+        });
+    </script>
 </head>
-
 <body>
 <center>
-	<div style="border: solid 1px black"><img src="{% static 'img/Pantalla.png' %}" width="500" height="70"/></div>
-</center>
-<div class="container">
-    <div class="row" id="row1">
-        <div class="column c1">
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
+    {% if sillas %}
+	<div style="border: solid 1px black"><a class="navbar-brand js-scroll-trigger" href="../CineJungla">Inicio</a>
+        <img src="{% static 'img/Pantalla.png' %}" width="600" height="70"/></div>
+    <div class="row form-group items-collection" id="row">
+        <center><form method="post" action="../comprar/">{% csrf_token %}
+            <div class="column c1">
+            {% for silla in sillas %}
+                {% if forloop.counter < 11 %}
+                    <label class="btn-default items">
+                        <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
+                            Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
+                            {% else %}Ocupado
+                            {% endif %}</span></p>
+                            <img src="{% static 'img/silla.png' %}" width="60" height="60"/>
+                        </a>
+                    </label>
+                {% endif %}
+            {% endfor %}
+            </div><div class="column c2">
+            {% for silla in sillas %}
+                {% if forloop.counter > 10 and forloop.counter < 21%}
+                        <label class="btn-default items">
+                            <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
+                                Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
+                                {% else %}Ocupado
+                                {% endif %}</span></p>
+                                <img src="{% static 'img/silla.png' %}" width="60" height="60"/>
+                            </a>
+                        </label>
+                {% endif %}
+            {% endfor %}
+            </div><div class="column c3">
+            {% for silla in sillas %}
+                {% if forloop.counter > 20 and forloop.counter < 31 %}
+                        <label class="btn-default items">
+                            <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
+                                Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
+                                {% else %}Ocupado
+                                {% endif %}</span></p>
+                                <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
+                            </a>
+                        </label>
+                {% endif %}
+            {% endfor %}
+            </div>
+            <div class="column c4">
+            {% for silla in sillas %}
+                {% if forloop.counter > 30 and forloop.counter < 41 %}
+                        <label class="btn-default items">
+                            <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
+                                Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
+                                {% else %}Ocupado
+                                {% endif %}</span></p>
+                                <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
+                            </a>
+                        </label>
+                {% endif %}
+            {% endfor %}
+            </div>
+            <div class="column c5">
+            {% for silla in sillas %}
+                {% if forloop.counter > 40 and forloop.counter < 51 %}
+                        <label class="btn-default items">
+                            <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
+                                Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
+                                {% else %}Ocupado
+                                {% endif %}</span></p>
+                                <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
+                            </a>
+                        </label>
+                {% endif %}
+            {% endfor %}
+            </div><div class="column c6">
+            {% for silla in sillas %}
+                {% if forloop.counter > 50 and forloop.counter < 61 %}
+                        <label class="btn-default items">
+                            <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
+                                Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
+                                {% else %}Ocupado
+                                {% endif %}</span></p>
+                                <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
+                            </a>
+                        </label>
+                {% endif %}
+            {% endfor %}
+            </div>
+        <div class="form-group">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <i class="fa fa-search fa-2x pull-left searchicon"></i><input type="search" class="form-control"
+                                                                              id="search" placeholder="Filter items...">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg active" name="pag" value="R">Reservar</button>
+            <button type="submit" class="btn btn-primary btn-lg active" name="pag" value="C">Comprar</button>
         </div>
-        <div class="column c2">
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-        </div>
-        <div class="column c1">
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-        </div>
-        <div class="column c2">
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-        </div>
-		<div class="column c3">
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-        </div>
-		<div class="column c4">
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/sillaR.png' %}" width="60" height="60"/></a>
-        </div>
-        <div class="column c5">
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-        </div>
-        <div class="column c6">
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-        </div>
-        <div class="column c6">
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-        </div>
-		<div class="column c6">
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-            <a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-			<a><p><span class="s-name">Disponible</span></p><img src="{% static 'img/silla.png' %}" width="60" height="60"/></a>
-        </div>
-
+            <input type="hidden" name="p" value="{{pelicula}}">
+            <input type="hidden" name="m" value="{{multiplex}}">
+        </form></center>
     </div>
-</div>
-
-</div>
-<a href="../templates/peliculas.html" class="btn btn-primary btn-lg active" role="button">Regresar</a>
-<a href="../templates/recibo.html" class="btn btn-primary btn-lg active" role="button">Cancelar</a>
-<a href="../templates/comida.html" class="btn btn-primary btn-lg active" role="button">Confiteria</a>
+    {% else %}
+        <h1>Sillas seleccionados</h1>
+        <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="pagar">Pagar</a>
+        </li>
+    {% endif %}
+</center>
 </body>
 </html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cine Jungla</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/agency.min.css' %}" rel="stylesheet">
+
+    <style type="text/css">
+        @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+        html,body{
+          color:white;
+          font-family:'Opens Sans',helvetica;
+          height:100%;
+          width:100%;
+          margin: 0px;
+        }
+
+        .portada{
+           background: url("{% static 'img/comida.jpg' %}") no-repeat fixed center;
+           -webkit-background-size: cover;
+           -moz-background-size: cover;
+           -o-background-size: cover;
+           background-size: cover;
+           height: 100%;
+           width: 100% ;
+           text-align: center;
+        }
+        .text{
+          margin: 30px 0px 30px 0px;
+          padding: 10px;
+          background: rgba(225, 225, 225, 0.6);
+          display: inline-block;
+        }
+    </style>
+    <script>
+        $("#js_up i").on('click', function (e) {
+          e.preventDefault(); //evita que se ejecute el tag ancla (<a href="#">valor</a>).
+          $("body,html").animate({ // aplicamos la función animate a los tags body y html
+            scrollTop: 0 //al colocar el valor 0 a scrollTop me volverá a la parte inicial de la página
+          },700); //el valor 700 indica que lo ara en 700 mili segundos
+          return false; //rompe el bucle
+        });
+    </script>
+</head>
+<body>
+    <div class="portada">
+        <br/><br/>
+        <div class="text">
+			<h1>Confiteria</h1>
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="../queso/">Ir</a>
+		</div>
+        <br/><br/><br/><br/><br/><br/>
+    </div>
+    <script src="{% static 'js/agency.min.js' %}"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Contact form JavaScript -->
+    <script src="{% static 'js/jqBootstrapValidation.js' %}"></script>
+    <script src="{% static 'js/contact_me.js' %}"></script>
+</body>
+</html>

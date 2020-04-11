@@ -3,7 +3,6 @@ from datetime import date
 from django.contrib.auth.models import User
 import uuid
 
-
 class Registrado(models.Model):
     nombre = models.CharField(max_length=50)
     email = models.EmailField()
@@ -11,40 +10,39 @@ class Registrado(models.Model):
     def __str__(self):
         return self.nombre
 
-
 class Reserva(models.Model):
     cod_reserva = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    fecha_reserva = models.DateTimeField()
-    cod_vendedor = models.ForeignKey(User, on_delete=models.CASCADE)
+    fecha_reserva = models.DateTimeField(verbose_name="Fecha de reserva")
+    cod_vendedor = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Vendedor")
 
     def __str__(self):
         return '{} {}'.format(self.fecha_reserva, self.cod_vendedor)
 
 
 class Venta(models.Model):
-    # id_venta = models.UUIDField(primary_Key=True, default = uuid.uuid4)
-    cant_producto = models.IntegerField()
-    ced_vendedor = models.ForeignKey(User, on_delete=models.CASCADE)
+    # id = models.UUIDField( default = uuid.uuid4)
+    cant_producto = models.IntegerField(verbose_name="Cantidad de productos")
+    ced_vendedor = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Vendedor")
 
     def __str__(self):
         return '{} {} {}'.format(self.cod_producto, self.ced_vendedor)
 
 
 class Producto(models.Model):
-    # id = models.UUIDField(primary_Key=True,  default=uuid.uuid4)
-    valor_unitario = models.DecimalField(max_digits=15, decimal_places=3)
-    nom_producto = models.CharField(max_length=20)
-    cod_venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
-    imagen_producto = models.ImageField(upload_to='media')
+    # id = models.UUIDField(default=uuid.uuid4)
+    valor_unitario = models.DecimalField(max_digits=15, decimal_places=3, verbose_name="Valor unitario")
+    nom_producto = models.CharField(max_length=20, verbose_name="Nombre del producto")
+    cod_venta = models.ForeignKey(Venta, on_delete=models.CASCADE, verbose_name="codigo de venta")
+    imagen_producto = models.ImageField(upload_to='media', verbose_name="imagen del producto")
 
     def __str__(self):
         return '{} {} {}'.format(self.valor_unitario, self.nom_producto, self.cod_venta)
 
 
 class Cliente(models.Model):
-    ced_cliente = models.IntegerField(primary_key=True, null=False)
-    nom_cliente = models.CharField(max_length=30)
-    correo_cliente = models.CharField(max_length=20)
+    ced_cliente = models.IntegerField(primary_key=True, null=False, verbose_name="Cedula")
+    nom_cliente = models.CharField(max_length=30, verbose_name="Nombre")
+    correo_cliente = models.CharField(max_length=20, verbose_name="Correo")
     puntos_cliente = models.IntegerField()
 
     def __str__(self):
@@ -71,18 +69,19 @@ class Factura(models.Model):
 # Create your models here.
 
 class Multiplex(models.Model):
-    id = models.IntegerField(primary_key=True, null=False)
-    nombre = models.CharField(max_length=50)
-    numero_salas = models.IntegerField()
+    id = models.IntegerField(primary_key=True, null=False, verbose_name="Codigo multiplex")
+    nombre = models.CharField(max_length=50, verbose_name="Nombre")
+    numero_salas = models.IntegerField(verbose_name="Número de salas")
+    imagen_cc = models.ImageField(upload_to='media', verbose_name="Imagen cc", null=True)
 
     def __str__(self):
-        return '{} {}'.format(self.nombre, self.numero_salas)
+        return '{} -- {}'.format(self.id, self.nombre)
 
 
 class Pelicula(models.Model):
-    id = models.IntegerField(primary_key=True, null=False)
-    nom_pelicula = models.CharField(max_length=30)
-    duracion_pelicula = models.CharField(max_length=30)
+    id = models.IntegerField(primary_key=True, null=False, verbose_name="Codigo película")
+    nom_pelicula = models.CharField(max_length=30, verbose_name="Nombre")
+    duracion_pelicula = models.TimeField(auto_now=False, auto_now_add=False, verbose_name="Duracion película")
     CLASIFICACION = (
         ('AA', 'PUBLICO INFANTIL'),
         ('A', 'TODO PUBLICO'),
@@ -91,13 +90,12 @@ class Pelicula(models.Model):
         ('C', 'ADULTOS 18 AÑOS'),
         ('D', 'ADULTOS')
     )
-    clasificacion = models.CharField(max_length=3, choices=CLASIFICACION)
-    imagen_pelicula = models.ImageField(upload_to='media')
-    trailer = models.URLField(blank=True)
+    clasificacion = models.CharField(max_length=3, choices=CLASIFICACION, verbose_name="Calsificación película")
+    imagen_pelicula = models.ImageField(upload_to='media', verbose_name="Imagen película")
+    trailer = models.URLField(blank=True, verbose_name="Trailer película")
 
     def __str__(self):
-        return '{} {} {} {} {}'.format(self.nom_pelicula, self.duracion_pelicula, self.clasificacion,
-                                       self.imagen_pelicula, self.trailer)
+        return '{} -- {}'.format(self.id, self.nom_pelicula)
 
 
 class Sala(models.Model):
@@ -105,35 +103,34 @@ class Sala(models.Model):
         ('HA', 'HABILITADA'),
         ('IN', 'INHABILITADA')
     )
-    id = models.IntegerField(primary_key=True, null=False)
-    cant_sillas = models.IntegerField()
-    cod_multi = models.ForeignKey(Multiplex, on_delete=models.CASCADE)
-    estado_sala = models.CharField(max_length=3, choices=ESTADO_SALA)
+    id = models.IntegerField(primary_key=True, null=False, verbose_name="Codigo sala")
+    cant_sillas = models.IntegerField(verbose_name="Cantidad de sillas")
+    cod_multi = models.ForeignKey(Multiplex, on_delete=models.CASCADE, verbose_name="Codigo múltiplex")
+    estado_sala = models.CharField(max_length=3, choices=ESTADO_SALA, verbose_name="Estado sala")
 
     def __str__(self):
-        return '{} {} {}'.format(self.cant_sillas, self.cod_multi, self.estado_sala)
+        return '{} -- {}'.format(self.id, self.cod_multi.nombre)
 
 
 class Proyeccion(models.Model):
-    id = models.IntegerField(primary_key=True, null=False)
-    cod_sala = models.ForeignKey(Sala, on_delete=models.SET_NULL, null=True)
-    cod_pelicula = models.ForeignKey(Pelicula, on_delete=models.SET_NULL, null=True)
-    horario = models.DateTimeField()
+    id = models.IntegerField(primary_key=True, null=False, verbose_name="Codigo proyección")
+    cod_sala = models.ForeignKey(Sala, on_delete=models.SET_NULL, null=True, verbose_name="Codigo Sala")
+    cod_pelicula = models.ForeignKey(Pelicula, on_delete=models.SET_NULL, null=True, verbose_name="Codigo película")
+    horario = models.DateTimeField(verbose_name="Hora película")
 
-    # def __str__(self):
-
-    # return '{} {} {}'.format(self.cod_sala,self.cod_horario,self.cod_pelicula)
+    def __str__(self):
+        return '{} -- {} -- {}'.format(self.cod_pelicula.nom_pelicula, self.cod_sala.cod_multi.nombre, self.horario)
 
 
 class Silla(models.Model):
-    id = models.IntegerField(primary_key=True, null=False)
-    cod_sala = models.ForeignKey(Sala, on_delete=models.CASCADE)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, verbose_name="Codigo silla")
+    cod_sala = models.ForeignKey(Sala, on_delete=models.CASCADE, verbose_name="Codigo sala")
     TIPO_SILLA = (
         ('G', 'GENERAL'),
         ('P', 'PREFERENCIAL')
     )
-    tipo_silla = models.CharField(max_length=1, choices=TIPO_SILLA)
-    cod_reserva = models.ForeignKey(Reserva, on_delete=models.SET_NULL, null=True)
+    tipo_silla = models.CharField(max_length=1, choices=TIPO_SILLA, verbose_name="Tipo de silla")
+    estado_silla = models.IntegerField(default=0, verbose_name="Estado silla")
 
     def __str__(self):
-        return '{} {} {}'.format(self.cod_sala, self.tipo_silla, self.cod_reserva)
+        return '{} -- {} -- {}'.format(self.cod_sala, self.tipo_silla, self.estado_silla)

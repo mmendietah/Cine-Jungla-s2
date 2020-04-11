@@ -7,5 +7,4 @@ admin.site.register(Pelicula)
 admin.site.register(Sala)
 admin.site.register(Proyeccion)
 admin.site.register(Silla)
-
 admin.site.register(Registrado)

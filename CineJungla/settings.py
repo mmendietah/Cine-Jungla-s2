@@ -23,17 +23,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '4g4ilas_l5)kt&$)^+x(upg%oi!o^9_33nk_5ru1p-!r^*9=59'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'miguemh99@gmail.com'
-# EMAIL_HOST_PASSWORD = ''
-# EMAIL_PO = 587
-# EMAIL_USER_TLS = True
-
-# Application definition
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'cinejungla20@gmail.com'
+EMAIL_HOST_PASSWORD = 'CineJungla123456'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,12 +52,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'CineJungla.urls'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
@@ -82,23 +79,24 @@ WSGI_APPLICATION = 'CineJungla.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-import dj_database_url
-from decouple import config
-
-DATABASES = {
-    'default': dj_database_url.config(default=config('DATABASE_URL'))
-}
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'YpwDdtMdT2',
-#         'USER': 'YpwDdtMdT2',
-#         'PASSWORD': 'GkCUCMa0XN',
-#         'HOST': 'remotemysql.com',
-#         'PORT': '3306',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'YpwDdtMdT2',
+        'USER': 'YpwDdtMdT2',
+        'PASSWORD': 'GkCUCMa0XN',
+        'HOST': 'remotemysql.com',
+        'PORT': '3306',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -122,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'es-mx'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -140,10 +138,8 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    # '/var/www/static/'
+    os.path.join(BASE_DIR, "static_pro", "static"),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_env", "static_root")
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_env", "media_root")
