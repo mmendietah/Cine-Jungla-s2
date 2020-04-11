@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '4g4ilas_l5)kt&$)^+x(upg%oi!o^9_33nk_5ru1p-!r^*9=59'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'cinejungla20@gmail.com'
@@ -141,5 +141,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static_pro", "static"),
 ]
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_env", "static_root")
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_env", "media_root")
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+STATIC_ROOT = os.path.join((BASE_DIR), "static_env", "static_root")
+MEDIA_ROOT = os.path.join((BASE_DIR), "static_env", "media_root")
