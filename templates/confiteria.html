@@ -62,10 +62,19 @@
 </head>
 <body>
     <div class="portada">
+        <a class="navbar-brand js-scroll-trigger" href="../logout">Salir</a>
         <br/><br/>
         <div class="text">
 			<h1>Confiteria</h1>
-            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="../queso/">Ir</a>
+            <h5>Cliente: </h5>
+            <form method="get" action="../conftIndex/">
+                <select class="form-control form-control-lg" name="cliente">
+                    {% for cliente in clientes %}
+                        <option value="{{cliente.ced_cliente}}">{{cliente.nom_cliente}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Ir</button>
+            </form>
 		</div>
         <br/><br/><br/><br/><br/><br/>
     </div>

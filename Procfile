@@ -1,1 +1,0 @@
-web: gunicorn CineJungla.wsgi --log-file -

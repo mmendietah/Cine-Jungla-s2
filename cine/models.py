@@ -2,6 +2,8 @@ from django.db import models
 from datetime import date
 from django.contrib.auth.models import User
 import uuid
+from datetime import datetime
+
 
 class Registrado(models.Model):
     nombre = models.CharField(max_length=50)
@@ -9,6 +11,7 @@ class Registrado(models.Model):
 
     def __str__(self):
         return self.nombre
+
 
 class Reserva(models.Model):
     cod_reserva = models.UUIDField(primary_key=True, default=uuid.uuid4)
@@ -19,24 +22,27 @@ class Reserva(models.Model):
         return '{} {}'.format(self.fecha_reserva, self.cod_vendedor)
 
 
-class Venta(models.Model):
-    # id = models.UUIDField( default = uuid.uuid4)
-    cant_producto = models.IntegerField(verbose_name="Cantidad de productos")
-    ced_vendedor = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Vendedor")
-
-    def __str__(self):
-        return '{} {} {}'.format(self.cod_producto, self.ced_vendedor)
-
-
 class Producto(models.Model):
     # id = models.UUIDField(default=uuid.uuid4)
     valor_unitario = models.DecimalField(max_digits=15, decimal_places=3, verbose_name="Valor unitario")
     nom_producto = models.CharField(max_length=20, verbose_name="Nombre del producto")
-    cod_venta = models.ForeignKey(Venta, on_delete=models.CASCADE, verbose_name="codigo de venta")
     imagen_producto = models.ImageField(upload_to='media', verbose_name="imagen del producto")
+    cant_producto = models.IntegerField()
 
     def __str__(self):
-        return '{} {} {}'.format(self.valor_unitario, self.nom_producto, self.cod_venta)
+        return '{} {}'.format(self.valor_unitario, self.nom_producto)
+
+
+class Venta(models.Model):
+    # id = models.UUIDField( default = uuid.uuid4)
+    cant_producto = models.IntegerField(verbose_name="Cantidad de productos")
+    ced_vendedor = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Vendedor")
+    cod_producto = models.ForeignKey(Producto, on_delete=models.CASCADE, verbose_name='codigo de producto')
+    fecha_venta = models.DateTimeField(default=datetime.now())
+    valor_venta = models.DecimalField(max_digits=15, decimal_places=3, verbose_name="Valor total")
+
+    def __str__(self):
+        return '{} {} {}'.format(self.cod_producto, self.ced_vendedor, self.cod_producto)
 
 
 class Cliente(models.Model):
@@ -134,3 +140,12 @@ class Silla(models.Model):
 
     def __str__(self):
         return '{} -- {} -- {}'.format(self.cod_sala, self.tipo_silla, self.estado_silla)
+
+
+class Lista(models.Model):
+    id_producto = models.IntegerField()
+    valor_unitario = models.DecimalField(max_digits=15, decimal_places=3, verbose_name="Valor unitario")
+    nom_producto = models.CharField(max_length=20, verbose_name="Nombre del producto")
+    imagen_producto = models.ImageField(upload_to='media', verbose_name="imagen del producto")
+    cant_producto = models.IntegerField()
+    cod_usuario = models.CharField(max_length=30, blank=True, null=False)

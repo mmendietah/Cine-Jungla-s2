@@ -32,17 +32,6 @@
           width:100%;
           margin: 0px;
         }
-
-        .portada{
-           background: url("{% static 'img/comida.jpg' %}") no-repeat fixed center;
-           -webkit-background-size: cover;
-           -moz-background-size: cover;
-           -o-background-size: cover;
-           background-size: cover;
-           height: 100%;
-           width: 100% ;
-           text-align: center;
-        }
         .portada2{
            background: url("{% static 'img/header-bg.jpg' %}") no-repeat fixed center;
            -webkit-background-size: cover;
@@ -75,8 +64,6 @@
 {% include "navbar.html"%}
     <div class="portada2">
         <div class="text">
-
-            <!--<a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="asientos/">Ir</a>-->
             {% for images in imagenes %}
               <h1>MULTIPLEX: {{ images.nombre }}</h1>
             {% endfor %}

@@ -311,48 +311,42 @@
 </head>
 <body>
 <a class="navbar-brand js-scroll-trigger" href="../CineJungla">Inicio</a>
+<a class="navbar-brand js-scroll-trigger" href="../logout">Salir</a>
 <div class="container">
-    {% for pelicula in pelis %}
-    <form method="post" action="../asientos/">{% csrf_token %}
-    <div class="movie-card">
-        <div class="movie-header">
-            <div class="header-icon-container">
-                <a>
-                    <img src="{{pelicula.imagen_pelicula}}" width="280" height="365"/>
-                    <input type="hidden" name="p" value="{{pelicula.nom_pelicula}}">
-                </a>
-            </div>
-        </div><!--movie-header-->
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="{{pelicula.trailer}}">
-                    <h3 class="movie-title">{{pelicula.nom_pelicula}}</h3>
-                </a>
-                <div class="imax-logo"></div>
-            </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>Duración</label>
-                    <span>{{pelicula.duracion_pelicula}}</span>
-                </div><!--date,time-->
-                <div class="info-section">
-                    <label>Clasificación</label>
-                    <span>{{pelicula.clasificacion}}</span>
-                </div><!--screen-->
-            </div>
-            <div class="dropdown">
-              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                Multiplex
-              </button>
-              <div class="dropdown-menu">
-                  {% for multiplex in multi %}
-                    <button type="submit" class="dropdown-item" name="m" value="{{multiplex.nombre}}">{{multiplex.nombre}}</button>
-                  {% endfor %}
-              </div>
-            </div>
-        </div><!--movie-content-->
-    </div>
-        </form>
+    {% for proyec in listap %}
+        <form method="post" action="../asientos/">{% csrf_token %}
+        <div class="movie-card">
+            <div class="movie-header">
+                <div class="header-icon-container">
+                    <a>
+                        <img src="{{proyec.imagen_pelicula}}" width="280" height="365"/>
+                        <input type="hidden" name="p" value="{{proyec.peliId}}">
+                    </a>
+                </div>
+            </div><!--movie-header-->
+            <div class="movie-content">
+                <div class="movie-content-header">
+                    <a href="{{proyec.trailer}}">
+                        <h3 class="movie-title">{{proyec.nom_pelicula}}</h3>
+                    </a>
+                    <div class="imax-logo"></div>
+                </div>
+                <div class="movie-info">
+                    <div class="info-section">
+                        <label>Duración</label>
+                        <span>{{proyec.duracion_pelicula}}</span>
+                    </div><!--date,time-->
+                    <div class="info-section">
+                        <label>Clasificación</label>
+                        <span>{{proyec.clasificacion}}</span>
+                    </div><!--screen-->
+                </div>
+                <div class="dropdown">
+                      <button type="submit" class="dropdown-item" name="s" value="{{proyec.salaId}}">{{proyec.nombre}} - Sala: {{proyec.salaId}}</button>
+                </div>
+            </div><!--movie-content-->
+        </div>
+            </form>
     {% endfor %}
 </div>
 </body>

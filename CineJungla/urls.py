@@ -33,6 +33,13 @@ urlpatterns = [
     path('confiteria/', views.confiteria),
     path('comprar/', views.comprar),
     path('recibo/', views.recibo),
+    path('conftIndex/', views.indexConf),
+    path('prueba1/', views.prueba),
+    path('listprueba/', views.listarProductos),
+    path('ventConf/', views.ventaConfiteria),
+    path('comprarComida/', views.comprarComida),
+    path('nuevo/', views.nuevo),
+    path('admin/reportes', views.reportes),
 ]
 
 if settings.DEBUG:

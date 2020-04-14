@@ -10,11 +10,37 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <title>CineJungla</title>
+    <style>
+        #form p {
+          text-align: center;
+        }
+        #form label {
+          font-size: 20px;
+        }
+        input[type="radio"] {
+          display: none;
+        }
+        label {
+          color: grey;
+        }
+        .clasificacion {
+          direction: rtl;
+          unicode-bidi: bidi-override;
+        }
+        label:hover,
+        label:hover ~ label {
+          color: orange;
+        }
+        input[type="radio"]:checked ~ label {
+          color: orange;
+        }
+    </style>
 </head>
 <body class="bg-light">
 <a class="navbar-brand js-scroll-trigger" href="../CineJungla">Inicio</a>
-<div class="container">
-    <div class="row">
+<a class="navbar-brand js-scroll-trigger" href="../logout">Salir</a>
+<div class="container" style=" width: 100%;">
+        <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Su carro</span>
@@ -32,15 +58,21 @@
                         <small class="text-muted">{{pelicula}}</small>
                     </div>
                 </li>
-                {% for silla in sillas %}
+                {% for silla in lista %}
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0">Silla</h6>
-                        <small class="text-muted">{{silla}}</small>
-                    </div>
-                    <span class="text-muted">$11.000</span>
+                        <small class="text-muted">{{silla.id}}</small>
+                    {% if silla.tipo_silla == 'G' %}
+                        <small class="text-muted">General</small></div>
+                        <span class="text-muted">$11.000</span>
+                    {% else %}
+                        <small class="text-muted">Preferencial</small></div>
+                        <span class="text-muted">$12.000</span>
+                    {% endif %}
                 </li>
                 {% endfor %}
+                {% if cliente.puntos_cliente >= 100 %}
                 <li class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
                         <h6 class="my-0">Descuento</h6>
@@ -48,67 +80,32 @@
                     </div>
                     <span class="text-success">-$11.000</span>
                 </li>
+                {% endif %}
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Total (COL)</span>
-                    <strong>$11.000</strong>
+                    <strong>$ {{total}}</strong>
                 </li>
             </ul>
-        </div>
-        <div class="col-md-8 order-md-1">
-            <h4 class="mb-3">Dirección de Envio</h4>
-            <form class="needs-validation" novalidate method="post" action="../confiteria/">
-                <h4 class="mb-3">Payment</h4>
-
-                <div class="d-block my-3">
-                    <div class="custom-control custom-radio">
-                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked
-                               required>
-                        <label class="custom-control-label" for="credit">Credit card</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="debit">Debit card</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="paypal">Paypal</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="cc-name">Nombre en la tarjeta</label>
-                        <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                        <small class="text-muted">Nombre completo como se muestra en la tarjeta</small>
-                        <div class="invalid-feedback">
-                            Se requiere el nombre en la tarjeta
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="cc-number">Número de tarjeta de crédito</label>
-                        <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Se requiere número de tarjeta de crédito
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <label for="cc-expiration">Expiración</label>
-                        <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Fecha de vencimiento requerida
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="cc-expiration">CVV</label>
-                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Código de seguridad requerido
-                        </div>
-                    </div>
-                </div>
-                <hr class="mb-4">
-                <button class="btn btn-secondary btn-lg btn-block" type="submit">Continuar a la comprobación</button>
+            <hr class="mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Calificación</span>
+            </h4>
+            <center>
+                <p class="clasificacion">
+                    <input id="radio1" type="radio" name="estrellas" value="5" style="display:none;">
+                    <label for="radio1">★</label>
+                    <input id="radio2" type="radio" name="estrellas" value="4">
+                    <label for="radio2">★</label>
+                    <input id="radio3" type="radio" name="estrellas" value="3">
+                    <label for="radio3">★</label>
+                    <input id="radio4" type="radio" name="estrellas" value="2">
+                    <label for="radio4">★</label>
+                    <input id="radio5" type="radio" name="estrellas" value="1">
+                    <label for="radio5">★</label>
+                  </p>
+            </center>
+            <form class="needs-validation" novalidate method="post" action="../CineJungla">{% csrf_token %}
+                <button class="btn btn-secondary btn-lg btn-block" type="submit">Continuar</button>
             </form>
         </div>
     </div>

@@ -55,6 +55,8 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 ROOT_URLCONF = 'CineJungla.urls'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -142,7 +144,5 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static_pro", "static"),
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-STATIC_ROOT = os.path.join((BASE_DIR), "static_env", "static_root")
-MEDIA_ROOT = os.path.join((BASE_DIR), "static_env", "media_root")
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_ROOT = os.path.join((BASE_DIR), "static_pro", "media_root")

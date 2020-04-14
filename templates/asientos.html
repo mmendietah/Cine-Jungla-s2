@@ -57,6 +57,7 @@
 <center>
     {% if sillas %}
 	<div style="border: solid 1px black"><a class="navbar-brand js-scroll-trigger" href="../CineJungla">Inicio</a>
+        <a class="navbar-brand js-scroll-trigger" href="../logout">Salir</a>
         <img src="{% static 'img/Pantalla.png' %}" width="600" height="70"/></div>
     <div class="row form-group items-collection" id="row">
         <center><form method="post" action="../comprar/">{% csrf_token %}
@@ -64,25 +65,35 @@
             {% for silla in sillas %}
                 {% if forloop.counter < 11 %}
                     <label class="btn-default items">
-                        <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
-                            Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
-                            {% else %}Ocupado
-                            {% endif %}</span></p>
-                            <img src="{% static 'img/silla.png' %}" width="60" height="60"/>
+                        <a><p><span class="s-name">
+                            {% if silla.estado_silla == 0 %}
+                            Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
+                            {% elif silla.estado_silla == 2 %}Ocupado
+                            <input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60" style="border: 1px solid #ddd;"/>
+                            {% else %}Ocupado</span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60" style="border: 1px solid #ddd; opacity: 0.5;"/>
+                            {% endif %}
                         </a>
                     </label>
                 {% endif %}
             {% endfor %}
             </div><div class="column c2">
             {% for silla in sillas %}
-                {% if forloop.counter > 10 and forloop.counter < 21%}
+                {% if forloop.counter > 10 and forloop.counter < 21 %}
                         <label class="btn-default items">
-                            <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
-                                Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
-                                {% else %}Ocupado
-                                {% endif %}</span></p>
-                                <img src="{% static 'img/silla.png' %}" width="60" height="60"/>
-                            </a>
+                            <a><p><span class="s-name">
+                            {% if silla.estado_silla == 0 %}
+                            Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
+                            {% elif silla.estado_silla == 2 %}Ocupado
+                            <input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60" style="border: 1px solid #ddd;"/>
+                            {% else %}Ocupado</span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60" style="border: 1px solid #ddd; opacity: 0.5;"/>
+                            {% endif %}
+                        </a>
                         </label>
                 {% endif %}
             {% endfor %}
@@ -90,12 +101,17 @@
             {% for silla in sillas %}
                 {% if forloop.counter > 20 and forloop.counter < 31 %}
                         <label class="btn-default items">
-                            <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
-                                Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
-                                {% else %}Ocupado
-                                {% endif %}</span></p>
-                                <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
-                            </a>
+                            <a><p><span class="s-name">
+                            {% if silla.estado_silla == 0 %}
+                            Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
+                            {% elif silla.estado_silla == 2 %}Ocupado
+                            <input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60" style="border: 1px solid #ddd;"/>
+                            {% else %}Ocupado</span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60" style="border: 1px solid #ddd; opacity: 0.5;"/>
+                            {% endif %}
+                        </a>
                         </label>
                 {% endif %}
             {% endfor %}
@@ -104,12 +120,17 @@
             {% for silla in sillas %}
                 {% if forloop.counter > 30 and forloop.counter < 41 %}
                         <label class="btn-default items">
-                            <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
-                                Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
-                                {% else %}Ocupado
-                                {% endif %}</span></p>
-                                <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
-                            </a>
+                            <a><p><span class="s-name">
+                            {% if silla.estado_silla == 0 %}
+                            Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
+                            {% elif silla.estado_silla == 2 %}Ocupado
+                            <input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60" style="border: 1px solid #ddd;"/>
+                            {% else %}Ocupado</span></p>
+                            <img src="{% static 'img/sillaR.png' %}" width="60" height="60" style="border: 1px solid #ddd; opacity: 0.5;"/>
+                            {% endif %}
+                        </a>
                         </label>
                 {% endif %}
             {% endfor %}
@@ -118,12 +139,17 @@
             {% for silla in sillas %}
                 {% if forloop.counter > 40 and forloop.counter < 51 %}
                         <label class="btn-default items">
-                            <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
-                                Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
-                                {% else %}Ocupado
-                                {% endif %}</span></p>
-                                <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
-                            </a>
+                            <a><p><span class="s-name">
+                            {% if silla.estado_silla == 0 %}
+                            Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/silla.png' %}" width="60" height="60"/>
+                            {% elif silla.estado_silla == 2 %}Ocupado
+                            <input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/silla.png' %}" width="60" height="60" style="border: 1px solid #ddd;"/>
+                            {% else %}Ocupado</span></p>
+                            <img src="{% static 'img/silla.png' %}" width="60" height="60" style="border: 1px solid #ddd; opacity: 0.5;"/>
+                            {% endif %}
+                        </a>
                         </label>
                 {% endif %}
             {% endfor %}
@@ -131,33 +157,44 @@
             {% for silla in sillas %}
                 {% if forloop.counter > 50 and forloop.counter < 61 %}
                         <label class="btn-default items">
-                            <a><p><span class="s-name">{% if silla.estado_silla == 0 %}
-                                Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id">
-                                {% else %}Ocupado
-                                {% endif %}</span></p>
-                                <img src="{% static 'img/sillaR.png' %}" width="60" height="60"/>
-                            </a>
+                            <a><p><span class="s-name">
+                            {% if silla.estado_silla == 0 %}
+                            Disponible<input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/silla.png' %}" width="60" height="60"/>
+                            {% elif silla.estado_silla == 2 %}Ocupado
+                            <input type="checkbox" value="{{silla.id}}" autocomplete="off" name="id"></span></p>
+                            <img src="{% static 'img/silla.png' %}" width="60" height="60" style="border: 1px solid #ddd;"/>
+                            {% else %}Ocupado</span></p>
+                            <img src="{% static 'img/silla.png' %}" width="60" height="60" style="border: 1px solid #ddd; opacity: 0.5;"/>
+                            {% endif %}
+                        </a>
                         </label>
                 {% endif %}
             {% endfor %}
             </div>
         <div class="form-group">
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                <i class="fa fa-search fa-2x pull-left searchicon"></i><input type="search" class="form-control"
-                                                                              id="search" placeholder="Filter items...">
-            </div>
+            <div class="row" style=" width: 50%;">
+                <i class="fa fa-search fa-2x pull-left searchicon"></i>
+                <input type="search" class="form-control" id="search" placeholder="Buscar silla por estado...">
+                 </div>
+                <div class="column">
+                <h5>Cliente: </h5>
+                <select class="form-control form-control-lg" name="cliente">
+                    {% for cliente in clientes %}
+                        <option value="{{cliente.ced_cliente}}">{{cliente.nom_cliente}}</option>
+                    {% endfor %}
+                </select>
             <button type="submit" class="btn btn-primary btn-lg active" name="pag" value="R">Reservar</button>
             <button type="submit" class="btn btn-primary btn-lg active" name="pag" value="C">Comprar</button>
-        </div>
             <input type="hidden" name="p" value="{{pelicula}}">
-            <input type="hidden" name="m" value="{{multiplex}}">
+            <input type="hidden" name="s" value="{{multiplex}}">
+            </div>
+        </div>
         </form></center>
     </div>
     {% else %}
-        <h1>Sillas seleccionados</h1>
-        <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="pagar">Pagar</a>
-        </li>
+        <a class="navbar-brand js-scroll-trigger" href="../CineJungla">Inicio</a>
+        <h1>Sala no disponible</h1>
     {% endif %}
 </center>
 </body>
